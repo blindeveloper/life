@@ -173,6 +173,14 @@ var lifeLogic = {
                         }
                     }
                 }
+
+                //is dead?
+                //console.log('a: ', arrayOfLiveCells[i].neighbors);
+                //console.log('b: ', arrayOfLiveCells);
+                //if (arrayOfLiveCells[i].neighbors[j].xPos === arrayOfLiveCells[i].xPosition &&
+                //    arrayOfLiveCells[i].neighbors[j].yPos === arrayOfLiveCells[i].yPosition) {
+                //    console.log('dead: ', arrayOfLiveCells[i]);
+                //}
             }
         }
 
