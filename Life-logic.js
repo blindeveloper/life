@@ -86,7 +86,6 @@ var lifeLogic = {
     },
 
     drawSelectedCell: function(selectedCellData) {
-        console.log(selectedCellData);
         for (var i = 0; i < Glb.cellContainer.length; i++) {
             if (Glb.cellContainer[i].xPosition === selectedCellData.xPosition &&
                 Glb.cellContainer[i].yPosition === selectedCellData.yPosition) {
@@ -110,6 +109,7 @@ var lifeLogic = {
 
     drawNewGeneration: function(arrey) {
         for (var i = 0; i < arrey.length; i++) {
+            arrey[i].lifeStatus = true;
             this.drawSelectedCell(arrey[i]);
         }
     },
@@ -178,12 +178,12 @@ var lifeLogic = {
 
         for (var g = 0; g < uniqueCells.length; g++) {
             if (uniqueCells[g].coincidence === 3) {
-                newGeneration.push(uniqueCells[g]);
+                newGeneration.push(new Cell.constructor(uniqueCells[g].xPos, uniqueCells[g].yPos));
             }
         }
 
         this.drawNewGeneration(newGeneration);
 
-        console.log('uniqueCells: ', newGeneration);
+        console.log('newGeneration: ', newGeneration);
     }
 };
