@@ -3,5 +3,6 @@ var Cell = {
         this.lifeStatus = false;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
+        this.neighbors = [];
     }
 };
