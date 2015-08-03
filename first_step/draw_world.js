@@ -7,18 +7,20 @@
 
 function drawGeneration(array) {
   if (Glb.cellContainer.length) {
+    console.log('1');
     for (var i = 0; i < array.length; i++) {
-      for (var j = 0; j < array.length; j++) {
-        if (array[i][j].lifeStatus) {
-          Glb.ctx.fillStyle = 'yellow';
+      // for (var j = 0; j < array.length; j++) {
+        if (array[i].lifeStatus) {
+          Glb.ctx.fillStyle = 'green';
         } else {
           Glb.ctx.fillStyle = 'white';
         }
 
-        Glb.ctx.fillRect(ox, oy, Glb.cellWidth - 1, Glb.cellHeight - 1);
-      }
+        Glb.ctx.fillRect(array[i].xPosition, array[i].yPosition, Glb.cellWidth - 1, Glb.cellHeight - 1);
+      // }
     }
   } else {
+    console.log('2');
     var ox = 0,
         oy = 0;
 
@@ -41,60 +43,5 @@ function drawGeneration(array) {
             }
         }
     };
-
-    setNeighborsForEachCell(Glb.cellContainer);
   }
-};
-
-function setNeighborsForEachCell(array) {
-  for (var i = 0; i < array.length; i++) {
-    array[i].neighbors = getNeighborOfSingleCell(array[i]);
-  }
-};
-
-function getNeighborOfSingleCell (cell) {
-    var neighbors = [
-        {
-            xPos: cell.xPosition - Glb.cellWidth,
-            yPos: cell.yPosition - Glb.cellHeight,
-            coincidence: 0
-        },
-        {
-            xPos: cell.xPosition,
-            yPos: cell.yPosition - Glb.cellHeight,
-            coincidence: 0
-        },
-        {
-            xPos: cell.xPosition + Glb.cellWidth,
-            yPos: cell.yPosition - Glb.cellHeight,
-            coincidence: 0
-        },
-        {
-            xPos: cell.xPosition - Glb.cellWidth,
-            yPos: cell.yPosition,
-            coincidence: 0
-        },
-        {
-            xPos: cell.xPosition + Glb.cellWidth,
-            yPos: cell.yPosition,
-            coincidence: 0
-        },
-        {
-            xPos: cell.xPosition - Glb.cellWidth,
-            yPos: cell.yPosition + Glb.cellHeight,
-            coincidence: 0
-        },
-        {
-            xPos: cell.xPosition,
-            yPos: cell.yPosition + Glb.cellHeight,
-            coincidence: 0
-        },
-        {
-            xPos: cell.xPosition + Glb.cellWidth,
-            yPos: cell.yPosition + Glb.cellHeight,
-            coincidence: 0
-        }
-    ];
-
-    return neighbors;
 };

@@ -1,71 +1,165 @@
 var lifeLogic = {
-
-    getSelectedCells: function() {
-      // console.log('Glb.cellContainer: ', Glb.cellContainer);
-      // return;
-
-        for (var i = 0; i < Glb.cellContainer.length; i++) {
-            if (Glb.cellContainer[i].lifeStatus === true) {
-                Glb.liveCells.push(Glb.cellContainer[i]);
-            }
-        }
-
-        this.lifeCycle(Glb.liveCells);
-    },
-
-    drawNewGeneration: function(arrey) {
-        for (var i = 0; i < arrey.length; i++) {
-            arrey[i].lifeStatus = true;
-            console.log('fff: ', Glb.cellContainer);
-
-            Glb.drawSelectedCell(arrey[i]);
-        }
-    },
-
-    lifeCycle: function (arrayOfLiveCells) {
-      console.log('arrayOfLiveCells: ', arrayOfLiveCells);
-        var newGeneration = [];
-        var uniqueCells = [];
-
-        for (var i = 0; i < arrayOfLiveCells.length; i++) {
-            for (var j = 0; j < arrayOfLiveCells[i].neighbors.length; j++) {
-                if (!uniqueCells.length) {
-                    arrayOfLiveCells[i].neighbors[j].coincidence += 1;
-                    uniqueCells.push(arrayOfLiveCells[i].neighbors[j]);
-                } else {
-                    var counter = 0;
-                    for (var k = 0; k < uniqueCells.length; k++) {
-                        if (arrayOfLiveCells[i].neighbors[j].xPos !== uniqueCells[k].xPos ||
-                            arrayOfLiveCells[i].neighbors[j].yPos !== uniqueCells[k].yPos ) {
-                            counter++;
-                        } else {
-                            uniqueCells[k].coincidence += 1;
-                        }
-
-                        if (counter === uniqueCells.length) {
-                            uniqueCells.push(arrayOfLiveCells[i].neighbors[j]);
-                        }
-                    }
-                }
-
-                //is dead?
-                //console.log('a: ', arrayOfLiveCells[i].neighbors);
-                //console.log('b: ', arrayOfLiveCells);
-                //if (arrayOfLiveCells[i].neighbors[j].xPos === arrayOfLiveCells[i].xPosition &&
-                //    arrayOfLiveCells[i].neighbors[j].yPos === arrayOfLiveCells[i].yPosition) {
-                //    console.log('dead: ', arrayOfLiveCells[i]);
-                //}
-            }
-        }
-
-        for (var g = 0; g < uniqueCells.length; g++) {
-            if (uniqueCells[g].coincidence === 3) {
-                newGeneration.push(new Cell.constructor(uniqueCells[g].xPos, uniqueCells[g].yPos));
-            }
-        }
-
-        this.drawNewGeneration(newGeneration);
-
-        console.log('newGeneration: ', newGeneration);
+  cellsForReborn: [],
+  cellsForDie: [],
+  lifeCycle2: function () {
+    for (var i = 0; i < Glb.cellContainer.length; i++) {
+      this.setCellsStats(Glb.cellContainer[i]);
     }
-};
+
+    this.cycleOfLife(lifeLogic.cellsForReborn);
+    this.cycleOfDeath(lifeLogic.cellsForDie);
+
+    drawGeneration(Glb.cellContainer);
+  },
+
+  setCellsStats: function (cell) {
+    var temporaryCellContainer = [];
+    var temporaryCellContainer2 = [];
+
+      for (var j = 0; j < Glb.cellContainer.length; j++) {
+
+        if (Glb.cellContainer[j].xPosition === cell.xPosition - Glb.cellWidth &&
+            Glb.cellContainer[j].yPosition === cell.yPosition - Glb.cellHeight) {
+
+              if (cell.lifeStatus) {
+                temporaryCellContainer2.push(Glb.cellContainer[j]);
+              } else {
+                temporaryCellContainer.push(Glb.cellContainer[j]);
+              }
+
+        }
+
+        if (Glb.cellContainer[j].xPosition === cell.xPosition &&
+            Glb.cellContainer[j].yPosition === cell.yPosition - Glb.cellHeight) {
+
+              if (cell.lifeStatus) {
+                temporaryCellContainer2.push(Glb.cellContainer[j]);
+              } else {
+                temporaryCellContainer.push(Glb.cellContainer[j]);
+              }
+        }
+
+        if (Glb.cellContainer[j].xPosition === cell.xPosition + Glb.cellWidth &&
+            Glb.cellContainer[j].yPosition === cell.yPosition - Glb.cellHeight) {
+
+              if (cell.lifeStatus) {
+                temporaryCellContainer2.push(Glb.cellContainer[j]);
+              } else {
+                temporaryCellContainer.push(Glb.cellContainer[j]);
+              }
+        }
+
+        if (Glb.cellContainer[j].xPosition === cell.xPosition - Glb.cellWidth &&
+            Glb.cellContainer[j].yPosition === cell.yPosition) {
+
+              if (cell.lifeStatus) {
+                temporaryCellContainer2.push(Glb.cellContainer[j]);
+              } else {
+                temporaryCellContainer.push(Glb.cellContainer[j]);
+              }
+        }
+
+        if (Glb.cellContainer[j].xPosition === cell.xPosition + Glb.cellWidth &&
+            Glb.cellContainer[j].yPosition === cell.yPosition) {
+
+              if (cell.lifeStatus) {
+                temporaryCellContainer2.push(Glb.cellContainer[j]);
+              } else {
+                temporaryCellContainer.push(Glb.cellContainer[j]);
+              }
+        }
+
+        if (Glb.cellContainer[j].xPosition === cell.xPosition - Glb.cellWidth &&
+            Glb.cellContainer[j].yPosition === cell.yPosition + Glb.cellHeight) {
+
+              if (cell.lifeStatus) {
+                temporaryCellContainer2.push(Glb.cellContainer[j]);
+              } else {
+                temporaryCellContainer.push(Glb.cellContainer[j]);
+              }
+        }
+
+        if (Glb.cellContainer[j].xPosition === cell.xPosition &&
+            Glb.cellContainer[j].yPosition === cell.yPosition + Glb.cellHeight) {
+
+              if (cell.lifeStatus) {
+                temporaryCellContainer2.push(Glb.cellContainer[j]);
+              } else {
+                temporaryCellContainer.push(Glb.cellContainer[j]);
+              }
+        }
+
+        if (Glb.cellContainer[j].xPosition === cell.xPosition + Glb.cellWidth &&
+            Glb.cellContainer[j].yPosition === cell.yPosition + Glb.cellHeight) {
+
+              if (cell.lifeStatus) {
+                temporaryCellContainer2.push(Glb.cellContainer[j]);
+              } else {
+                temporaryCellContainer.push(Glb.cellContainer[j]);
+              }
+        }
+
+      }
+
+      if (temporaryCellContainer2.length) {
+        if (this.getQuantityOfliveNeighgors(temporaryCellContainer2) === 3 ||
+            this.getQuantityOfliveNeighgors(temporaryCellContainer2) === 2) {
+
+          lifeLogic.cellsForReborn.push(cell);
+        } else {
+          lifeLogic.cellsForDie.push(cell);
+        }
+      }
+
+      if (this.getLiveCellsNeighbors(temporaryCellContainer) === 3) {
+        lifeLogic.cellsForReborn.push(cell);
+      }
+  },
+
+  getLiveCellsNeighbors: function (array) {
+    var counter = 0;
+
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].lifeStatus) {
+        counter++;
+      }
+    }
+
+    return counter;
+  },
+
+  getQuantityOfliveNeighgors: function (array) {
+    var counter2 = 0;
+
+    for (var i = 0; i < array.length; i++) {
+      if (array[i].lifeStatus) {
+        counter2++;
+      }
+    }
+
+    return counter2;
+  },
+
+  cycleOfLife: function (array) {
+    for (var i = 0; i < array.length; i++) {
+      for (var j = 0; j < Glb.cellContainer.length; j++) {
+        if (array[i].xPosition === Glb.cellContainer[j].xPosition &&
+            array[i].yPosition === Glb.cellContainer[j].yPosition) {
+          Glb.cellContainer[j].lifeStatus = true;
+        }
+      }
+    }
+  },
+
+  cycleOfDeath: function (array) {
+    for (var i = 0; i < array.length; i++) {
+      for (var j = 0; j < Glb.cellContainer.length; j++) {
+        if (array[i].xPosition === Glb.cellContainer[j].xPosition &&
+            array[i].yPosition === Glb.cellContainer[j].yPosition) {
+          Glb.cellContainer[j].lifeStatus = false;
+        }
+      }
+    }
+  }
+
+}
