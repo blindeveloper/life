@@ -24,7 +24,14 @@ var Glb = {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    ]
+    ],
+    cell: {
+      constructor: function(xPosition, yPosition) {
+          this.lifeStatus = false;
+          this.xPosition = xPosition;
+          this.yPosition = yPosition;
+      }
+    }
 };
 
 Glb.ctx = Glb.canvas.getContext('2d');
@@ -59,8 +66,8 @@ Glb.drawSelectedCell = function(selectedCellData) {
 
 Glb.lifeRunner.addEventListener('click', function () {
     setInterval(function () {
-      lifeLogic.cellsForReborn = [];
-      lifeLogic.cellsForDie = [];
-      lifeLogic.lifeCycle2();
+      LifeCycle.cellsForReborn = [];
+      LifeCycle.cellsForDie = [];
+      LifeCycle.LifeCycleLogic();
     }, 500);
 });

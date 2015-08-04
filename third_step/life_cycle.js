@@ -1,15 +1,15 @@
-var lifeLogic = {
+var LifeCycle = {
   cellsForReborn: [],
   cellsForDie: [],
-  lifeCycle2: function () {
+  LifeCycleLogic: function () {
     for (var i = 0; i < Glb.cellContainer.length; i++) {
       this.setCellsStats(Glb.cellContainer[i]);
     }
 
-    this.cycleOfLife(lifeLogic.cellsForReborn);
-    this.cycleOfDeath(lifeLogic.cellsForDie);
+    this.cycleOfLife(LifeCycle.cellsForReborn);
+    this.cycleOfDeath(LifeCycle.cellsForDie);
 
-    drawGeneration(Glb.cellContainer);
+    DrawWorld.drawGeneration(Glb.cellContainer);
   },
 
   setCellsStats: function (cell) {
@@ -105,14 +105,14 @@ var lifeLogic = {
         if (this.getQuantityOfliveNeighgors(temporaryCellContainer2) === 3 ||
             this.getQuantityOfliveNeighgors(temporaryCellContainer2) === 2) {
 
-          lifeLogic.cellsForReborn.push(cell);
+          LifeCycle.cellsForReborn.push(cell);
         } else {
-          lifeLogic.cellsForDie.push(cell);
+          LifeCycle.cellsForDie.push(cell);
         }
       }
 
       if (this.getLiveCellsNeighbors(temporaryCellContainer) === 3) {
-        lifeLogic.cellsForReborn.push(cell);
+        LifeCycle.cellsForReborn.push(cell);
       }
   },
 

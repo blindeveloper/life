@@ -1,25 +1,14 @@
-Glb.canvas.addEventListener('click', function(evt) {
-    var mousePos = getMousePos(Glb.canvas, evt);
-
-    var coordinates = {
-        mousePosX: mousePos.x,
-        mousePosY: mousePos.y
-    };
-
-    var selectedCell = getSelectedCell(coordinates);
-    Glb.drawSelectedCell(selectedCell);
-}, false);
-
-function getMousePos (canvas, evt) {
+var FirstCivilisation = {
+  getMousePos: function (canvas, evt) {
     var rect = canvas.getBoundingClientRect();
 
     return {
         x: evt.clientX - rect.left,
         y: evt.clientY - rect.top
     };
-};
+  },
 
-function getSelectedCell (coordinates) {
+  getSelectedCell: function (coordinates) {
     for (var i = 0; i < Glb.cellContainer.length; i++) {
         if (coordinates.mousePosX > Glb.cellContainer[i].xPosition &&
             coordinates.mousePosX < Glb.cellContainer[i].xPosition + Glb.cellWidth) {
@@ -30,4 +19,17 @@ function getSelectedCell (coordinates) {
             }
         }
     }
+  }
 };
+
+Glb.canvas.addEventListener('click', function(evt) {
+    var mousePos = FirstCivilisation.getMousePos(Glb.canvas, evt);
+
+    var coordinates = {
+        mousePosX: mousePos.x,
+        mousePosY: mousePos.y
+    };
+
+    var selectedCell = FirstCivilisation.getSelectedCell(coordinates);
+    Glb.drawSelectedCell(selectedCell);
+}, false);
