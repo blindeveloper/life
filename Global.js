@@ -58,10 +58,9 @@ Glb.drawSelectedCell = function(selectedCellData) {
 };
 
 Glb.lifeRunner.addEventListener('click', function () {
-    lifeLogic.cellsForReborn = [];
-    lifeLogic.cellsForDie = [];
-
     setInterval(function () {
+      lifeLogic.cellsForReborn = [];
+      lifeLogic.cellsForDie = [];
       lifeLogic.lifeCycle2();
     }, 500);
 });

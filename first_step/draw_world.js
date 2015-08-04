@@ -9,7 +9,6 @@ function drawGeneration(array) {
   if (Glb.cellContainer.length) {
     console.log('1');
     for (var i = 0; i < array.length; i++) {
-      // for (var j = 0; j < array.length; j++) {
         if (array[i].lifeStatus) {
           Glb.ctx.fillStyle = 'green';
         } else {
@@ -17,7 +16,6 @@ function drawGeneration(array) {
         }
 
         Glb.ctx.fillRect(array[i].xPosition, array[i].yPosition, Glb.cellWidth - 1, Glb.cellHeight - 1);
-      // }
     }
   } else {
     console.log('2');
